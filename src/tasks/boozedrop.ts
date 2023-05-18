@@ -15,8 +15,10 @@ import {
   itemAmount,
   myInebriety,
   print,
+  runChoice,
   use,
   useFamiliar,
+  visitUrl,
 } from "kolmafia";
 import {
   $effect,
@@ -81,15 +83,6 @@ export const BoozeDropQuest: Quest = {
         hermit($item`11-leaf clover`, 1);
       },
       limit: { tries: 50 },
-    },
-    {
-      name: "Get Cyclops Eyedrops",
-      completed: () => have($item`cyclops eyedrops`) || have($effect`One Very Clear Eye`),
-      do: (): void => {
-        if (!have($effect`Lucky!`)) use($item`11-leaf clover`);
-        if (!have($item`cyclops eyedrops`)) adv1($location`The Limerick Dungeon`, -1);
-      },
-      limit: { tries: 1 },
     },
     {
       name: "Fax Ungulith",
@@ -191,6 +184,20 @@ export const BoozeDropQuest: Quest = {
       limit: { tries: 1 },
     },
     {
+      name: "Use Shadow Lodestone",
+      ready: () => have($item`Rufus's shadow lodestone`),
+      completed: () => have($effect`Shadow Waters`),
+      do: (): void => {
+        visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
+        runChoice(2);
+      },
+      choices: {
+        1500: 2,
+      },
+      combat: new CombatStrategy().macro(Macro.abort()),
+      limit: { tries: 1 },
+    },
+    {
       name: "Test",
       prepare: (): void => {
         const usefulEffects: Effect[] = [
@@ -199,12 +206,12 @@ export const BoozeDropQuest: Quest = {
           $effect`Fat Leon's Phat Loot Lyric`,
           // $effect`Feeling Lost`,
           $effect`items.enh`,
-          $effect`One Very Clear Eye`,
+          // $effect`One Very Clear Eye`,
           $effect`Nearly All-Natural`,
           $effect`The Spirit of Taking`,
           $effect`Singer's Faithful Ocelot`,
           $effect`Steely-Eyed Squint`,
-          $effect`Uncucumbered`,
+          // $effect`Uncucumbered`,
         ];
         usefulEffects.forEach((ef) => tryAcquiringEffect(ef, true));
 

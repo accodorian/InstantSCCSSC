@@ -67,10 +67,6 @@ export const MuscleQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Muscle.isDone(),
       prepare: (): void => {
-        if (!have($effect`Expert Oiliness`) && !have($item`oil of expertise`)) {
-          create($item`oil of expertise`, 1);
-        }
-        ensureEffect($effect`Expert Oiliness`);
         if (
           !have($effect`Phorcefullness`) &&
           !have($item`philter of phorce`) &&
@@ -122,6 +118,10 @@ export const MysticalityQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Mysticality.isDone(),
       prepare: (): void => {
+        if (!have($effect`Stabilizing Oiliness`) && !have($item`oil of stability`)) {
+          create($item`oil of stability`, 1);
+        }
+        ensureEffect($effect`Stabilizing Oiliness`);
         const usefulEffects: Effect[] = [
           $effect`Big`,
           $effect`Glittering Eyelashes`,
@@ -169,10 +169,10 @@ export const MoxieQuest: Quest = {
       name: "Test",
       completed: () => CommunityService.Moxie.isDone(),
       prepare: (): void => {
-        if (!have($effect`Expert Oiliness`) && !have($item`oil of expertise`)) {
-          create($item`oil of expertise`, 1);
+        if (!have($effect`Stabilizing Oiliness`) && !have($item`oil of stability`)) {
+          create($item`oil of stability`, 1);
         }
-        ensureEffect($effect`Expert Oiliness`);
+        ensureEffect($effect`Stabilizing Oiliness`);
         const usefulEffects: Effect[] = [
           // $effect`Amazing`,
           $effect`Big`,

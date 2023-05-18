@@ -16,20 +16,6 @@ export const NoncombatQuest: Quest = {
       limit: { tries: 1 },
     },
     {
-      name: "Use Shadow Lodestone",
-      ready: () => have($item`Rufus's shadow lodestone`),
-      completed: () => have($effect`Shadow Waters`),
-      do: (): void => {
-        visitUrl("place.php?whichplace=town_right&action=townright_shadowrift");
-        runChoice(2);
-      },
-      choices: {
-        1500: 2,
-      },
-      combat: new CombatStrategy().macro(Macro.abort()),
-      limit: { tries: 1 },
-    },
-    {
       name: "Test",
       completed: () => CommunityService.Noncombat.isDone(),
       prepare: (): void => {

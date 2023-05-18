@@ -11,7 +11,7 @@ export default class Macro extends StrictMacro {
     );
     return (useCinch ? macroHead.trySkill($skill`Cincho: Confetti Extravaganza`) : macroHead)
       .while_(
-        `!mpbelow ${mpCost($skill`Saucegeyser`)} && hasskill ${toInt($skill`Saucegeyser`)}`,
+        `!mpbelow ${mpCost($skill`Lunging Thrust-Smack`)} && hasskill ${toInt($skill`Lunging Thrust-Smack`)}`,
         Macro.skill($skill`Saucegeyser`)
       )
       .while_(

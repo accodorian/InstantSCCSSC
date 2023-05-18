@@ -96,11 +96,13 @@ const usefulEffects: Effect[] = [
   $effect`Saucemastery`,
   $effect`Disdain of She-Who-Was`,
   $effect`Glittering Eyelashes`,
+  $effect`Go Get 'Em, Tiger!`,
   $effect`Feeling Excited`,
   $effect`Triple-Sized`,
-  $effect`substats.enh`,
+  // $effect`substats.enh`,
   $effect`Hulkien`,
-  $effect`Uncucumbered`,
+  $effect`Muddled`,
+  // $effect`Uncucumbered`,
   $effect`We're All Made of Starfish`,
   $effect`Broad-Spectrum Vaccine`,
   // $effect`Think Win-Lose`,
@@ -122,6 +124,7 @@ const usefulEffects: Effect[] = [
   $effect`Aloysius' Antiphon of Aptitude`,
 
   // Spell dmg
+  $effect`Carol of the Bulls`,
   $effect`Carol of the Hells`,
 ];
 
@@ -212,7 +215,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Clan Shower",
       completed: () => get("_aprilShower"),
-      do: () => ensureEffect($effect`Thaumodynamic`),
+      do: () => ensureEffect($effect`Muscle Unbound`),
       limit: { tries: 1 },
     },
     {
@@ -315,13 +318,13 @@ export const LevelingQuest: Quest = {
       name: "Wish for XP% buff",
       // TODO: Make this completed if we've already wished twice with the paw (requires mafia tracking)
       completed: () =>
-        have($effect`Different Way of Seeing Things`) ||
+        have($effect`HGH-charged`) ||
         !have($item`cursed monkey's paw`) ||
-        forbiddenEffects.includes($effect`Different Way of Seeing Things`) ||
+        forbiddenEffects.includes($effect`HGH-charged`) ||
         get("instant_saveMonkeysPaw", false) ||
-        myBasestat($stat`Mysticality`) >= targetBaseMyst - targetBaseMystGap ||
+        myBasestat($stat`Muscle`) >= targetBaseMyst - targetBaseMystGap ||
         get("_monkeyPawWishesUsed", 0) >= 2,
-      do: () => wishFor($effect`Different Way of Seeing Things`, false),
+      do: () => wishFor($effect`HGH-charged`, false),
     },
     {
       name: "Pull Non-Euclidean Angle",
@@ -478,7 +481,7 @@ export const LevelingQuest: Quest = {
     {
       name: "Consult Gorgonzola",
       completed: () => get("_clanFortuneBuffUsed") || get("instant_saveFortuneTeller", false),
-      do: () => cliExecute("fortune buff mys"),
+      do: () => cliExecute("fortune buff mus"),
       limit: { tries: 1 },
     },
     {
@@ -673,31 +676,31 @@ export const LevelingQuest: Quest = {
     {
       name: "Use Ointment of the Occult",
       completed: () =>
-        (!have($item`grapefruit`) && !have($item`ointment of the occult`)) ||
-        have($effect`Mystically Oiled`),
+        (!have($item`lemon`) && !have($item`philter of phorce`)) ||
+        have($effect`Phorcefullness`),
       do: (): void => {
-        if (!have($item`ointment of the occult`)) {
+        if (!have($item`philter of phorce`)) {
           if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
-          create($item`ointment of the occult`, 1);
+          create($item`philter of phorce`, 1);
         }
-        ensureEffect($effect`Mystically Oiled`);
+        ensureEffect($effect`Phorcefullness`);
       },
     },
     {
       name: "Use Oil of Expertise",
       ready: () => get("_loveTunnelUsed") || !get("loveTunnelAvailable"),
       completed: () =>
-        (!have($item`cherry`) && itemAmount($item`oil of expertise`) <= 1) ||
-        have($effect`Expert Oiliness`),
+        (!have($item`lime`) && itemAmount($item`oil of stability`) <= 1) ||
+        have($effect`Stabilizing Oiliness`),
       do: (): void => {
-        if (!have($item`oil of expertise`)) {
+        if (!have($item`oil of stability`)) {
           if (get("reagentSummons") === 0) useSkill($skill`Advanced Saucecrafting`, 1);
-          create($item`oil of expertise`, 1);
+          create($item`oil of stability`, 1);
         }
-        if (itemAmount($item`oil of expertise`) > 1)
-          use($item`oil of expertise`, itemAmount($item`oil of expertise`) - 1);
-        if (have($item`cherry`) && have($effect`Expert Oiliness`))
-          putCloset(itemAmount($item`cherry`), $item`cherry`);
+        if (itemAmount($item`oil of stability`) > 1)
+          use($item`oil of stability`, itemAmount($item`oil of stability`) - 1);
+        if (have($item`lime`) && have($effect`Stabilizing Oiliness`))
+          putCloset(itemAmount($item`lime`), $item`lime`);
       },
       limit: { tries: 1 },
     },
